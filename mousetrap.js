@@ -190,9 +190,11 @@
      */
     function _characterFromEvent(e) {
 
+        const isNumPadOrDigit = (e.code.includes('Digit') || e.code.includes('Numpad'))
+
         // for keypress events we should return the character as is
         if (e.type == 'keypress') {
-            var character = String.fromCharCode(e.which);
+            var character = isNumPadOrDigit ? e.code : String.fromCharCode(e.which);
 
             // if the shift key is not pressed then it is safe to assume
             // that we want the character to be lowercase.  this means if
@@ -224,7 +226,7 @@
         // with keydown and keyup events the character seems to always
         // come in as an uppercase character whether you are pressing shift
         // or not.  we should make sure it is always lowercase for comparisons
-        return String.fromCharCode(e.which).toLowerCase();
+        return isNumPadOrDigit ? e.code : String.fromCharCode(e.which).toLowerCase();
     }
 
     /**
