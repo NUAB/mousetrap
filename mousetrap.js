@@ -23,7 +23,7 @@
 (function(window, document, undefined) {
 
     var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-    window.mouseTrapIsRecording = false;
+    var mouseTrapIsRecording = false;
 
     // Check if mousetrap is used inside browser, if not, return
     if (!window) {
@@ -195,7 +195,7 @@
 
         const isNumPadOrDigit = (e.code.includes('Digit') || e.code.includes('Numpad'))
 
-        if(isChrome && !window.mouseTrapIsRecording && e.type == 'keydown'){ // chrome does not trigger keypress when ctrl is pushed down
+        if(isChrome && !Mousetrap.getIsRecording() && e.type == 'keydown'){ // chrome does not trigger keypress when ctrl is pushed down
         var character = isNumPadOrDigit ? e.code : String.fromCharCode(e.which);
 
             if (!e.shiftKey) {
@@ -1053,6 +1053,14 @@
             }
         }
     };
+
+    Mousetrap.prototype.getIsRecording = () => {
+        return mouseTrapIsRecording;
+    }
+
+    Mousetrap.prototype.setIsRecording = (bool) => {
+        mouseTrapIsRecording = bool;
+    }
 
     Mousetrap.init();
 

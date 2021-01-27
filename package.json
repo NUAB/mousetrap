@@ -1,6 +1,6 @@
 {
-  "name": "mousetrap",
-  "version": "1.6.5",
+  "name": "nuab-mousetrap",
+  "version": "1.6.7",
   "description": "Simple library for handling keyboard shortcuts",
   "main": "mousetrap.js",
   "directories": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/ccampbell/mousetrap.git"
+    "url": "git@github.com:NUAB/mousetrap.git"
   },
   "keywords": [
     "keyboard",
@@ -20,7 +20,7 @@
   ],
   "author": "Craig Campbell",
   "license": "Apache-2.0 WITH LLVM-exception",
-  "gitHead": "c202a0bd4967d5a3064f9cb376db51dec9345336",
+  "gitHead": "ee792efa0c4066c53bfae176ec21a85602ad4022",
   "readmeFilename": "README.md",
   "devDependencies": {
     "chai": "^4.2.0",
