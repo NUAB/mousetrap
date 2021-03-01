@@ -217,7 +217,6 @@
 
         if(Mousetrap.getIsChrome() && !Mousetrap.getIsRecording() && e.type == 'keydown'){ // chrome does not trigger keypress when ctrl is pushed down
             var character = isNumPadOrDigit ? e.code.toLowerCase() : String.fromCharCode(e.which);
-    
                 return character;
             }
 
