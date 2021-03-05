@@ -194,7 +194,22 @@
     function _characterFromEvent(e) {
 
         const isNumPadOrDigit = (e.code.includes('Digit') || e.code.includes('Numpad'))
-
+        if(Mousetrap.getIsChrome() && !Mousetrap.getIsRecording() && isNumPadOrDigit && e.type == 'keydown'){ // chrome does not trigger keypress when ctrl is pushed down
+            var character = isNumPadOrDigit ? e.code.toLowerCase() : String.fromCharCode(e.which);
+                    // if the shift key is not pressed then it is safe to assume
+            // that we want the character to be lowercase.  this means if
+            // you accidentally have caps lock on then your key bindings
+            // will continue to work
+            //
+            // the only side effect that might not be desired is if you
+            // bind something like 'A' cause you want to trigger an
+            // event when capital A is pressed caps lock will no longer
+            // trigger the event.  shift+a will though.
+            if (!e.shiftKey) {
+                character = character.toLowerCase();
+            }
+                return character;
+            }
         // for keypress events we should return the character as is
         if ( e.type == 'keypress') {
             var character = isNumPadOrDigit ? e.code.toLowerCase() : String.fromCharCode(e.which);
@@ -214,11 +229,6 @@
 
             return character;
         }
-
-        if(Mousetrap.getIsChrome() && !Mousetrap.getIsRecording() && e.type == 'keydown'){ // chrome does not trigger keypress when ctrl is pushed down
-            var character = isNumPadOrDigit ? e.code.toLowerCase() : String.fromCharCode(e.which);
-                return character;
-            }
 
         // for non keypress events the special maps are needed
         if (_MAP[e.which]) {
@@ -627,6 +637,7 @@
                 _preventDefault(e);
                 _stopPropagation(e);
             }
+            
         }
 
         /**
@@ -686,6 +697,7 @@
                 if (!processedSequenceCallback) {
                     _fireCallback(callbacks[i].callback, e, callbacks[i].combo);
                 }
+
             }
 
             // if the key you pressed matches the type of sequence without
